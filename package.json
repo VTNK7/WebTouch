@@ -1,0 +1,23 @@
+{
+  "name": "webtouch",
+  "version": "1.0.0",
+  "description": "Bot dofus touch sur navigateur",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "primus": "^8.0.7",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "typescript": "^5.0.3"
+  }
+}
