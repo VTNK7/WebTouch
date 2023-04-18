@@ -1,6 +1,9 @@
-import Primus from 'primus';
+
+import primusClient from 'primus-client';
+import Primus from 'primus-client';
 import HaapiConnection from './HaapiConnection.js';
 import Constants from './Constants.js';
+
 
 export default class Account {
     haapi;
@@ -42,6 +45,7 @@ export default class Account {
     }
 
     createSocket(url) {
+        console.log("Creation du socket");
         return new Primus(url, {
             manual: true,
             reconnect: {
@@ -52,6 +56,7 @@ export default class Account {
             strategy: "disconnect,timeout",
             transformer: "engine.io",
         });
-    }
+
+    } 
 
 }

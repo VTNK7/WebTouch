@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
     "http-server": "^14.1.1"
   },
   "dependencies": {
@@ -18,6 +20,7 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
     "primus": "^8.0.7",
+    "primus-client": "^7.3.4",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "typescript": "^5.0.3"
