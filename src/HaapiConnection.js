@@ -9,7 +9,6 @@ export default class HaapiConnection {
         this.account = account;
     }
 
-
     async processHaapi(username, password) {
         this.haapi = await this.createApiKey(username, password);
         this.token = await this.getToken();

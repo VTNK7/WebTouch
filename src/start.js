@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 function start() {
+    console.log('HELLO');
     if (!process.env.USERNAME || !process.env.PASSWORD) {
         console.log('Please set USERNAME and PASSWORD environment variables. (.env file)');
         process.exit(1);
