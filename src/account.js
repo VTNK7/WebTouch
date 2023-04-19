@@ -8,13 +8,12 @@ import Constants from './Constants.js';
 export default class Account {
     haapi;
     socket;
-    username;
+    pseudo;
     password;
     constants;
 
-
-    constructor(username, password) {
-        this.username = username;
+    constructor(pseudo, password) {
+        this.pseudo = pseudo;
         this.password = password;
         this.constants = new Constants();
     }
@@ -26,9 +25,8 @@ export default class Account {
             return;
         }
 
-
         this.haapi = new HaapiConnection({ account: this });
-        this.haapi.processHaapi(this.username, this.password);
+        this.haapi.processHaapi(this.pseudo, this.password);
         this.connect(this.constants.config.sessionId, this.constants.config.dataUrl);
     }
 
