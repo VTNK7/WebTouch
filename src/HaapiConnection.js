@@ -45,6 +45,6 @@ export default class HaapiConnection {
             "mode": "cors",
             "credentials": "omit"
         }).then((response) => response.json())
-            .then(data => data);
+            .then(data => data.token);
     }
 }
