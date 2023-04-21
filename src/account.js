@@ -3,7 +3,7 @@ import primusClient from 'primus-client';
 import Primus from 'primus-client';
 import HaapiConnection from './HaapiConnection.js';
 import Constants from './Constants.js';
-
+import HandleResponse from './HandleResponse.js';
 
 export default class Account {
     haapi;
@@ -11,10 +11,12 @@ export default class Account {
     pseudo;
     password;
     serverId = 401;
+    responseHandler = new HandleResponse({ account: this });
 
     constructor(pseudo, password) {
         this.pseudo = pseudo;
         this.password = password;
+        
         // this.constants = new Constants();
 
     }
@@ -162,7 +164,7 @@ export default class Account {
         this.CommonSocket();
 
         this.socket.on("data", (data) => {
-            // On en est là
+            this.responseHandler.handle(data);
         });
 
     }
