@@ -1,7 +1,7 @@
 
 
 export default class HandleResponse {
-
+    account;
     constructor({ account }) {
         this.account = account;
     }
@@ -11,6 +11,8 @@ export default class HandleResponse {
             case "ObjectAveragePricesMessage":
                 this.handleObjectAveragePricesMessage(data);
                 break;
+            
+  
             default:
                 console.log("Unhandled message type : ", data._messageType);
         }
@@ -19,4 +21,6 @@ export default class HandleResponse {
     handleObjectAveragePricesMessage(data) {
         console.log("ObjectAveragePricesMessage received : ", data);
     }
+
+
 }

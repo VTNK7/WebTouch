@@ -1,4 +1,5 @@
 import axios from "axios";
+import fs from "fs";
 
 export default class Constants {
 
@@ -12,6 +13,7 @@ export default class Constants {
     static staticDataVersion;
     static appVersion;
     static buildVersion;
+    static items = {};
 
     static async init() {
 
@@ -23,6 +25,9 @@ export default class Constants {
 
         this.appVersion = await Constants.getAppVersion();
         this.buildVersion = await Constants.getBuildVersion();
+        this.items = Constants.getItemsList();
+
+
     }
 
     static async getConfig() {
@@ -58,5 +63,8 @@ export default class Constants {
         return regex.exec(response.data.substring(1, 10000))[2];
     }
 
+    static getItemsList() {
+        return JSON.parse(fs.readFileSync(`public/assets/${this.assetsVersion}/items.json`, "utf8"));
+    }
 }
 
