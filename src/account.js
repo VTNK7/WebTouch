@@ -72,7 +72,7 @@ export default class Account {
                     token: this.haapi.token,
                     username: this.pseudo
                 });
-            }   else return
+            }  
 
             if (data._messageType === "ServersListMessage") {
                 console.log("BIENRECU");
@@ -84,9 +84,8 @@ export default class Account {
                     }
 
                 });
-            } else return
+            } 
             var url1;
-            console.log("data", data._access)
             if (data._messageType === "SelectedServerDataMessage") {
                 url1 = data._access;
 
@@ -95,16 +94,15 @@ export default class Account {
                     data: "SWITCHING_TO_GAME"
 
                 });
-            }else return
+                this.socket.destroy();
+                console.log("url1", url1);
+                const currentUrl = this.makeSticky(url1, Constants.config.sessionId);
+                this.socket = this.createSocket(currentUrl);
+                this.setCurrentConnection();
+                this.socket.open();
+            }
             // NOUVELLE SOCKET
-
-            this.socket.destroy();
-            console.log("url1", url1);
-            const currentUrl = this.makeSticky(url1, Constants.config.sessionId);
-            this.socket = this.createSocket(currentUrl);
-            this.setCurrentConnection();
-            this.socket.open();
-
+            
         });
 
         this.socket.on("error", (err) => {
