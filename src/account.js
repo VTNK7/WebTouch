@@ -11,9 +11,11 @@ export default class Account {
     socket;
     pseudo;
     password;
-    serverId = 401;
     responseHandler = new HandleResponse({ account: this });
     ticket;
+    serverAdress;
+    serverId = 401;
+    serverPort;
 
     constructor(pseudo, password) {
         this.pseudo = pseudo;
@@ -45,22 +47,13 @@ export default class Account {
             msgName = call;
             msg = data ? { call, data } : { call };
         }
-        console.log("Sending", msg.call);
+        console.log("Sending : ", msg.call);
         // this.onMessageSent.trigger({ type: msgName, data });
         // Frames.dispatcher.emit(msgName, this.account, data);
         this.socket.write(msg);
     }
 
     CommonSocket() {
-        this.socket.on("open", () => {
-            this.send("connecting", {
-                appVersion: Constants.appVersion,
-                buildVersion: Constants.buildVersion,
-                client: "android",
-                language: "fr",
-                server: "login"
-            });
-        });
 
         this.socket.on("error", (err) => {
             console.log('Erreur : ' + err.message);
@@ -117,10 +110,20 @@ export default class Account {
 
     FirstSocket() {
         console.log("\nStarting first socket operations")
+        this.socket.on("open", () => {
+            this.send("connecting", {
+                appVersion: Constants.appVersion,
+                buildVersion: Constants.buildVersion,
+                client: "android",
+                language: "fr",
+                server: "login"
+            });
+        });
+
         this.CommonSocket();
 
         this.socket.on("data", (data) => {
-            console.log("data received : ", data._messageType);
+            console.log("Received 1 :", data._messageType);
 
             if (data._messageType === "HelloConnectMessage") {
                 const key = data.key;
@@ -128,7 +131,7 @@ export default class Account {
                 this.send("login", {
                     key: key,
                     salt: salt,
-                    token: this.haapi.token,
+                    token: this.haapi.token, //BUG token undefined 
                     username: this.pseudo
                 });
             }
@@ -142,8 +145,11 @@ export default class Account {
                 });
             }
 
+
             else if (data._messageType === "SelectedServerDataMessage") {
                 const urlSecondSocket = data._access;
+                this.serverAdress = data.address;
+                this.serverPort = data.port;
                 this.ticket = data.ticket;
                 this.send("disconnecting", {
                     data: "SWITCHING_TO_GAME"
@@ -162,24 +168,63 @@ export default class Account {
 
     SecondSocket() {
         console.log("\nStarting second socket operations")
+
+        this.socket.on("open", () => {
+            console.log("port : ", this.serverPort, " adress : ", this.serverAdress, " id : ", this.serverId);
+            this.send("connecting", {
+                "language": "fr",
+                "server": {
+                    "address": this.serverAdress,
+                    "port": this.serverPort,
+                    "id": this.serverId
+                },
+                "client": "android",
+                "appVersion": "3.3.7",
+                "buildVersion": "1.58.3"
+            }
+            );
+        });
+
         this.CommonSocket();
 
         this.socket.on("data", (data) => {
+            console.log('Received 2 :', data._messageType);
             if (data._messageType === "ProtocolRequired") {
                 // On fait rien
             }
 
-            else if (data._messageType === "HelloConnectMessage") {
+            else if (data._messageType === "HelloGameMessage") {
                 this.send("sendMessage", {
-                    data: {
-                        "type": "AuthenticationTicketMessage",
-                        "data": {
-                            "ticket": this.ticket,
-                            "lang": "fr"
-                        }
+                    "type": "AuthenticationTicketMessage",
+                    "data": {
+                        "ticket": this.ticket,
+                        "lang": "fr"
                     }
+
                 });
             }
+
+            else if (data._messageType === "AccountCapabilitiesMessage") {
+                this.send("pingSession", {
+                    "data": 62755565,
+                    // j'ai mis une data au piff jsp a quoi ca sert warning antibot
+                });
+            }
+            else if (data._messageType === "TrustStatusMessage") {
+                this.send("sendMessage", {
+                    "type": "CharactersListRequestMessage"
+
+                });
+            }
+            else if (data._messageType === "CharactersListMessage") {
+                this.send("sendMessage", {
+                    "type": "CharacterSelectionMessage",
+                    "data": {
+                        "id": 3017884 // selection du perso a rendre modifiable
+                    }   
+                });
+            }
+
             else {
                 this.responseHandler.handle(data);
             }

@@ -1,0 +1,581 @@
+//ouvrir magasin
+{
+    "call": "sendMessage",
+    "data": {
+        "type": "NpcGenericActionRequestMessage",
+        "data": {
+            "npcId": 0,
+            "npcActionId": 6,
+            "npcMapId": 84672518
+        }
+    }
+}
+{
+    "_messageType": "BasicAckMessage",
+    "seq": 43,
+    "lastPacketId": 5898,
+    "_isInitialized": true
+}
+{
+    "_messageType": "ExchangeStartedBidBuyerMessage",
+    "buyerDescriptor": {
+        "_type": "SellerBuyerDescriptor",
+        "quantities": [
+            1,
+            10,
+            100
+        ],
+        "types": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            21,
+            22,
+            25,
+            26,
+            33,
+            34,
+            35,
+            36,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            62,
+            63,
+            64,
+            65,
+            66,
+            68,
+            69,
+            70,
+            71,
+            72,
+            74,
+            75,
+            76,
+            77,
+            78,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            90,
+            93,
+            95,
+            96,
+            97,
+            98,
+            99,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            116,
+            119,
+            121,
+            122,
+            123,
+            124,
+            151,
+            152,
+            153,
+            157,
+            164,
+            165,
+            172,
+            181,
+            182,
+            183,
+            184,
+            185,
+            168,
+            175,
+            20,
+            23,
+            37,
+            61,
+            79,
+            154,
+            158,
+            159,
+            160,
+            161,
+            162,
+            163,
+            190,
+            205,
+            219
+        ],
+        "taxPercentage": 3,
+        "maxItemLevel": 1000,
+        "maxItemPerAccount": 125,
+        "npcContextualId": 0,
+        "unsoldDelay": 672
+    },
+    "_isInitialized": true
+}
+{
+    "_messageType": "BasicNoOperationMessage"
+}
+//aller dans anneau
+{
+    "call": "sendMessage",
+    "data": {
+        "type": "ExchangeBidHouseTypeMessage",
+        "data": {
+            "type": 9
+        }
+    }
+}
+{
+    "_messageType": "BasicAckMessage",
+    "seq": 58,
+    "lastPacketId": 5803,
+    "_isInitialized": true
+}
+{
+    "_messageType": "ExchangeTypesExchangerDescriptionForUserMessage",
+    "typeDescription": [
+        1718,
+        6467,
+        11621,
+        768,
+        7249,
+        6920,
+        12120,
+        8470,
+        6732,
+        9148,
+        7123,
+        15755,
+        14009,
+        17798,
+        7128,
+        8715,
+        13897,
+        8254,
+        16020,
+        12109,
+        8872,
+        11620,
+        767,
+        7248,
+        15346,
+        14092,
+        16243,
+        7555,
+        14008,
+        110,
+        1499,
+        14089,
+        8714,
+        9133,
+        11717,
+        850,
+        836,
+        6465,
+        7247,
+        1497,
+        8448,
+        14496,
+        7121,
+        16200,
+        14007,
+        19161,
+        15250,
+        9132,
+        8224,
+        6464,
+        346,
+        8126,
+        7246,
+        2469,
+        6743,
+        2441,
+        12372,
+        13629,
+        7120,
+        6771,
+        9131,
+        851,
+        8223,
+        6910,
+        6463,
+        359,
+        8991,
+        1602,
+        13265,
+        8460,
+        13642,
+        14061,
+        7119,
+        16198,
+        16128,
+        8725,
+        11714,
+        8222,
+        18600,
+        1087,
+        7122,
+        1559,
+        16212,
+        7132,
+        7118,
+        13124,
+        8724,
+        8263,
+        9126,
+        8221,
+        12104,
+        12090,
+        7341,
+        12020,
+        8109,
+        8877,
+        7131,
+        119,
+        16126,
+        17802,
+        9128,
+        1501,
+        12969,
+        12019,
+        6767,
+        11577,
+        14058,
+        7116,
+        15383,
+        1656,
+        8289,
+        9127,
+        8219,
+        8149,
+        732,
+        11578,
+        15831,
+        15356,
+        2418,
+        8721,
+        11738,
+        6961,
+        6947,
+        9129,
+        6919,
+        12101,
+        16018,
+        355,
+        787,
+        6793,
+        11579,
+        14077,
+        8860,
+        3203,
+        11737,
+        9125,
+        6946,
+        12114,
+        12100,
+        12086,
+        11469,
+        2420,
+        8454,
+        8859,
+        101,
+        7881,
+        2419,
+        11736,
+        9124,
+        6945,
+        12113,
+        841,
+        12085,
+        785,
+        6468,
+        6819,
+        6805,
+        11470,
+        6749,
+        14068,
+        14054,
+        8537,
+        2475,
+        8299,
+        8271,
+        9123,
+        6944,
+        16456,
+        6469,
+        15059,
+        1493,
+        12094,
+        6748,
+        8466,
+        14067,
+        1496,
+        11735,
+        9178,
+        8717,
+        8270,
+        9122,
+        6915,
+        12097,
+        11622,
+        8865,
+        8879,
+        12851,
+        1494,
+        8004,
+        13115,
+        11384,
+        9177,
+        6998,
+        8716,
+        8269,
+        6956
+    ],
+    "_isInitialized": true
+}
+{
+    "_messageType": "BasicNoOperationMessage"
+}
+//selection anneau pitale
+{
+    "call": "sendMessage",
+    "data": {
+        "type": "ExchangeBidHouseListMessage",
+        "data": {
+            "id": 8725
+        }
+    }
+}
+{
+    "_messageType": "BasicAckMessage",
+    "seq": 61,
+    "lastPacketId": 5807,
+    "_isInitialized": true
+}
+
+// pour l'anneau rexik (prix plus complets)
+{
+    "_messageType": "ExchangeTypesItemsExchangerDescriptionForUserMessage",
+    "itemTypeDescriptions": [
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1005437,
+            "effects": [
+                {
+                    "_type": "ObjectEffectString",
+                    "actionId": 988,
+                    "value": "Cascarita"
+                }
+            ],
+            "prices": [
+                348000,
+                0,
+                0
+            ]
+        }
+    ],
+    "_isInitialized": true
+}
+{
+    "_messageType": "BasicNoOperationMessage"
+}
+
+
+{
+    "_messageType": "ExchangeTypesItemsExchangerDescriptionForUserMessage",
+    "itemTypeDescriptions": [
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 121750519,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 5
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 5
+                }
+            ],
+            "prices": [
+                150,
+                0,
+                0
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1001936,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 6
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 5
+                }
+            ],
+            "prices": [
+                0,
+                2000,
+                11000
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1001959,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 4
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 15
+                }
+            ],
+            "prices": [
+                2000,
+                0,
+                0
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 14052846,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 3
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 7
+                }
+            ],
+            "prices": [
+                160,
+                1999,
+                0
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1001908,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 3
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 5
+                }
+            ],
+            "prices": [
+                1999,
+                2000,
+                11000
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1001888,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 8
+                }
+            ],
+            "prices": [
+                2000,
+                0,
+                0
+            ]
+        },
+        {
+            "_type": "BidExchangerObjectInfo",
+            "objectUID": 1001894,
+            "effects": [
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 152,
+                    "value": 5
+                },
+                {
+                    "_type": "ObjectEffectInteger",
+                    "actionId": 119,
+                    "value": 7
+                }
+            ],
+            "prices": [
+                1999,
+                0,
+                0
+            ]
+        }
+    ],
+    "_isInitialized": true
+}

@@ -14,12 +14,11 @@ export default class HandleResponse {
             
   
             default:
-                console.log("Unhandled message type : ", data._messageType);
         }
     }
 
     handleObjectAveragePricesMessage(data) {
-        console.log("ObjectAveragePricesMessage received : ", data);
+        console.log("ObjectAveragePricesMessage received : ");
     }
 
 
