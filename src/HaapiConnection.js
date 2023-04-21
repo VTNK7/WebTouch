@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Constants from './Constants.js';
 export default class HaapiConnection {
     haapi;
     token;
@@ -12,7 +12,6 @@ export default class HaapiConnection {
     async processHaapi(pseudo, password) {
         this.haapi = await this.createApiKey(pseudo, password);
         this.token = await this.getToken();
-        console.log(this.token);
     };
     async createApiKey(pseudo, password) {
         return fetch("https://haapi.ankama.com/json/Ankama/v5/Api/CreateApiKey", {
@@ -33,7 +32,7 @@ export default class HaapiConnection {
     }
 
     async getToken() {
-        return fetch(`${this.account.constants.HAAPI_URL}Account/CreateToken?game=18`, {
+        return fetch(`${Constants.HAAPI_URL}Account/CreateToken?game=18`, {
             "headers": {
                 "accept": "application/json",
                 "accept-language": "en-US",
