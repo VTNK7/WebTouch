@@ -3,7 +3,7 @@ import primusClient from 'primus-client';
 import Primus from 'primus-client';
 import HaapiConnection from './HaapiConnection.js';
 import Constants from './Constants.js';
-
+import Frames from './Frames.js';
 
 export default class Account {
     haapi;
@@ -28,7 +28,6 @@ export default class Account {
         this.haapi = new HaapiConnection({ account: this });
         this.haapi.processHaapi(this.pseudo, this.password);
         this.connect(Constants.config.sessionId, Constants.config.dataUrl);
-        this.connect(Constants.config.sessionId, Constants.config.dataUrl);
         // wss://north-virginiagameproxy.touch.dofus.com/primus?STICKER=ILiUydR7Z4Lnn/uf&_primuscb=OUXHNlQ
     }
 
@@ -42,7 +41,7 @@ export default class Account {
             msgName = call;
             msg = data ? { call, data } : { call };
         }
-        console.log("Sending", msg);
+        //console.log("Sending", msg);
         // this.onMessageSent.trigger({ type: msgName, data });
         // Frames.dispatcher.emit(msgName, this.account, data);
         this.socket.write(msg);
@@ -61,47 +60,59 @@ export default class Account {
         });
 
         this.socket.on("data", (data) => {
-            console.log("Received", data);
 
-            if (data._messageType === "HelloConnectMessage") {
-                const key = data.key;
-                const salt = data.salt;
-                this.send("login", {
-                    key: key,
-                    salt: salt,
-                    token: this.haapi.token,
-                    username: this.pseudo
-                });
-            }  
+            // this.onMessageReceived.trigger({ type: data._messageType, data });
+            console.log(data)
+            Frames.dispatcher.emit(data._messageType, this.account, data);
+            // for (const rm of this._registeredMessages.values()) {
+            //   if (rm.name !== data._messageType) {
+            //     continue;
+            //   }
+            //   rm.action(this.account, data);
+            // }
 
-            if (data._messageType === "ServersListMessage") {
-                console.log("BIENRECU");
-                this.send("sendMessage", {
+            //console.log("Received", data);
 
-                    "type": "ServerSelectionMessage",
-                    "data": {
-                        "serverId": 401
-                    }
+            // if (data._messageType === "HelloConnectMessage") {
+            //     const key = data.key;
+            //     const salt = data.salt;
+            //     this.send("login", {
+            //         key: key,
+            //         salt: salt,
+            //         token: this.haapi.token,
+            //         username: this.pseudo
+            //     });
+            // }  
 
-                });
-            } 
-            var url1;
-            if (data._messageType === "SelectedServerDataMessage") {
-                url1 = data._access;
+            // if (data._messageType === "ServersListMessage") {
+            //     console.log("BIENRECU");
+            //     this.send("sendMessage", {
 
-                this.send("disconnecting", {
+            //         "type": "ServerSelectionMessage",
+            //         "data": {
+            //             "serverId": 401
+            //         }
 
-                    data: "SWITCHING_TO_GAME"
+            //     });
+            // } 
+            // var url1;
+            // if (data._messageType === "SelectedServerDataMessage") {
+            //     url1 = data._access;
 
-                });
-                this.socket.destroy();
-                console.log("url1", url1);
-                const currentUrl = this.makeSticky(url1, Constants.config.sessionId);
-                this.socket = this.createSocket(currentUrl);
-                this.setCurrentConnection();
-                this.socket.open();
-            }
-            // NOUVELLE SOCKET
+            //     this.send("disconnecting", {
+
+            //         data: "SWITCHING_TO_GAME"
+
+            //     });
+
+            //     this.socket.destroy();
+            //     console.log("url1", url1);
+            //     const currentUrl = this.makeSticky(url1, Constants.config.sessionId);
+            //     this.socket = this.createSocket(currentUrl);
+            //     this.setCurrentConnection();
+            //     this.socket.open();
+            // }
+            // // NOUVELLE SOCKET
             
         });
 

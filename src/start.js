@@ -1,6 +1,6 @@
 import Account from './account.js';
 import Constants from './Constants.js';
-
+import Frames from './Frames.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -11,6 +11,7 @@ async function start() {
     }
     var account = new Account(process.env.PSEUDO, process.env.PASSWORD);
     await Constants.init();
+    Frames.init();
     account.start();
 
 }
