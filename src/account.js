@@ -10,6 +10,7 @@ export default class Account {
     socket;
     pseudo;
     password;
+    serverId = 401;
 
     constructor(pseudo, password) {
         this.pseudo = pseudo;
@@ -28,7 +29,7 @@ export default class Account {
         this.haapi = new HaapiConnection({ account: this });
         this.haapi.processHaapi(this.pseudo, this.password);
         this.connect(Constants.config.sessionId, Constants.config.dataUrl);
-        this.connect(Constants.config.sessionId, Constants.config.dataUrl);
+        // this.connect(Constants.config.sessionId, Constants.config.dataUrl);
         // wss://north-virginiagameproxy.touch.dofus.com/primus?STICKER=ILiUydR7Z4Lnn/uf&_primuscb=OUXHNlQ
     }
 
@@ -42,14 +43,13 @@ export default class Account {
             msgName = call;
             msg = data ? { call, data } : { call };
         }
-        console.log("Sending", msg);
+        console.log("Sending", msg.call);
         // this.onMessageSent.trigger({ type: msgName, data });
         // Frames.dispatcher.emit(msgName, this.account, data);
         this.socket.write(msg);
     }
 
-
-    setCurrentConnection() {
+    CommonSocket() {
         this.socket.on("open", () => {
             this.send("connecting", {
                 appVersion: Constants.appVersion,
@@ -58,53 +58,6 @@ export default class Account {
                 language: "fr",
                 server: "login"
             });
-        });
-
-        this.socket.on("data", (data) => {
-            console.log("Received", data);
-
-            if (data._messageType === "HelloConnectMessage") {
-                const key = data.key;
-                const salt = data.salt;
-                this.send("login", {
-                    key: key,
-                    salt: salt,
-                    token: this.haapi.token,
-                    username: this.pseudo
-                });
-            }   else return
-
-            if (data._messageType === "ServersListMessage") {
-                console.log("BIENRECU");
-                this.send("sendMessage", {
-
-                    "type": "ServerSelectionMessage",
-                    "data": {
-                        "serverId": 401
-                    }
-
-                });
-            } else return
-            var url1;
-            console.log("data", data._access)
-            if (data._messageType === "SelectedServerDataMessage") {
-                url1 = data._access;
-
-                this.send("disconnecting", {
-
-                    data: "SWITCHING_TO_GAME"
-
-                });
-            }else return
-            // NOUVELLE SOCKET
-
-            this.socket.destroy();
-            console.log("url1", url1);
-            const currentUrl = this.makeSticky(url1, Constants.config.sessionId);
-            this.socket = this.createSocket(currentUrl);
-            this.setCurrentConnection();
-            this.socket.open();
-
         });
 
         this.socket.on("error", (err) => {
@@ -140,7 +93,7 @@ export default class Account {
         });
 
         this.socket.on("readyStateChange", (state) => {
-            console.log('Connection readyStateChange');
+            // console.log('Connection readyStateChange');
         });
 
         this.socket.on("offline", () => {
@@ -160,11 +113,65 @@ export default class Account {
         });
     }
 
+    FirstSocket() {
+        console.log("\nStarting first socket operations")
+        this.CommonSocket();
+
+        this.socket.on("data", (data) => {
+            console.log("data received : ", data._messageType);
+
+            if (data._messageType === "HelloConnectMessage") {
+                const key = data.key;
+                const salt = data.salt;
+                this.send("login", {
+                    key: key,
+                    salt: salt,
+                    token: this.haapi.token,
+                    username: this.pseudo
+                });
+            }
+
+            else if (data._messageType === "ServersListMessage") {
+                this.send("sendMessage", {
+                    type: "ServerSelectionMessage",
+                    data: {
+                        "serverId": this.serverId
+                    }
+                });
+            }
+
+            else if (data._messageType === "SelectedServerDataMessage") {
+                const urlSecondSocket = data._access;
+                this.send("disconnecting", {
+                    data: "SWITCHING_TO_GAME"
+                });
+
+                // NOUVELLE SOCKET
+                console.log("Nouvelle socket");
+                this.socket.destroy();
+                const currentUrl = this.makeSticky(urlSecondSocket, Constants.config.sessionId);
+                this.socket = this.createSocket(currentUrl);
+                this.SecondSocket();
+                this.socket.open();
+            }
+        });
+    }
+
+    SecondSocket() {
+        console.log("\nStarting second socket operations")
+        this.CommonSocket();
+
+        this.socket.on("data", (data) => {
+            // On en est là
+        });
+
+    }
+
     connect(sessionId, url) {
         const currentUrl = this.makeSticky(url, sessionId);
         console.log("Primus", "Connecting to login server (" + currentUrl + ") ...");
         this.socket = this.createSocket(currentUrl);
-        this.setCurrentConnection();
+        this.FirstSocket(); // will open second socket on finish
         this.socket.open();
     }
 

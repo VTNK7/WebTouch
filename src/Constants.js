@@ -14,11 +14,13 @@ export default class Constants {
     static buildVersion;
 
     static async init() {
-        
+
         this.config = await Constants.getConfig();
-        const m = await Constants.getAssetVersion();
-        this.assetsVersion = m.assetsVersion;
-        this.staticDataVersion = m.staticDataVersion;
+
+        const rawAssetVersionMessage = await Constants.getAssetVersion();
+        this.assetsVersion = rawAssetVersionMessage.assetsVersion;
+        this.staticDataVersion = rawAssetVersionMessage.staticDataVersion;
+
         this.appVersion = await Constants.getAppVersion();
         this.buildVersion = await Constants.getBuildVersion();
     }
@@ -53,9 +55,8 @@ export default class Constants {
     static async getBuildVersion() {
         const response = await axios.get(`https://proxyconnection.touch.dofus.com/build/script.js`);
         const regex = /.*buildVersion=("|')([0-9]*\.[0-9]*\.[0-9]*)("|')/g;
-    const m = regex.exec(response.data.substring(1, 10000));
-    return m[2];
-      }
+        return regex.exec(response.data.substring(1, 10000))[2];
+    }
 
 }
 

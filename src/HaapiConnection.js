@@ -1,4 +1,3 @@
-import axios from "axios";
 import Constants from './Constants.js';
 export default class HaapiConnection {
     haapi;
