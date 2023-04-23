@@ -11,14 +11,12 @@ sendButton.addEventListener('click', sendHTMLText);
 function sendHTMLText() {
   htmlText = htmlTextArea.value;
   console.log("htmlText : " + htmlText);
-  ws.send(htmlText);
+  ws.send(JSON.stringify(JSON.parse(htmlText)));
 } 
-
 
 ws.onerror = console.error;
 
 ws.onopen = function () {
-  ws.send('ON ENVOI DEPUIS CLIENT');
 };
 
 ws.onmessage = function (event) {
