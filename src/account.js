@@ -5,6 +5,7 @@ import HaapiConnection from './HaapiConnection.js';
 import Constants from './Constants.js';
 import HandleResponse from './HandleResponse.js';
 import fs from 'fs';
+import { sendClient } from './server.js';
 
 export default class Account {
     haapi;
@@ -226,6 +227,7 @@ export default class Account {
             }
 
             else {
+                sendClient(data._messageType);
                 this.responseHandler.handle(data);
             }
         });
