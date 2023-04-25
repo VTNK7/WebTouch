@@ -1,0 +1,14 @@
+{
+    "call": "connecting",
+    "data": {
+        "language": "fr",
+        "server": {
+            "address": "172.30.16.26",
+            "port": 5555,
+            "id": 401
+        },
+        "client": "android",
+        "appVersion": "3.3.7",
+        "buildVersion": "1.58.4"
+    }
+}

@@ -15,18 +15,17 @@ wss.on('connection', function connection(ws) {
     client = ws;
     client.on('ERROR SOCKET', console.error);
 
-    client.on('message', function message(data) {
-        console.log('SOCKET RECU %s', data);
+    client.on('message', function message(event) {
         //account.send() a rajouter
-        jsonData = JSON.parse(data);
-        this.send(jsonData.call,jsonData.data)
+        jsonData = JSON.parse(JSON.parse(event.toString()));
+        account.send(JSON.stringify(jsonData.call),JSON.stringify(jsonData.data))
     });
-    client.send('MESSAGE ENVOYE');
+    client.send(JSON.stringify({"Connexion established":true}));
 });
 
 function sendClient(data) {
     if (client) {
-        client.send(data);
+        client.send(JSON.stringify(data,null,4));
     }
 }
 

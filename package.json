@@ -21,6 +21,7 @@
     "nodemon": "^2.0.22",
     "primus": "^8.0.7",
     "primus-client": "^7.3.4",
+    "prismjs": "^1.29.0",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "typescript": "^5.0.3"

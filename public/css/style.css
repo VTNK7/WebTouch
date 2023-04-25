@@ -1,0 +1,98 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+div {
+    margin: 0;
+  }
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+
+.angry-grid {
+    display: grid;
+
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    gap: 0px;
+    height: 100%;
+
+}
+
+#sendPlace {
+
+    background-color: #444444;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-column-end: 2;
+    padding: 20px;
+    /* Ajout de marges de 10 pixels */
+
+}
+
+#receivedData {
+
+    background-color: #bfbfbf;
+    grid-row-start: 2;
+    grid-column-start: 1;
+
+    grid-row-end: 4;
+    grid-column-end: 2;
+    padding: 20px;
+    /* Ajout de marges de 10 pixels */
+
+
+}
+
+#screenData {
+
+    background-color: #ffffff;
+    grid-row-start: 1;
+    grid-column-start: 2;
+
+    grid-row-end: 4;
+    grid-column-end: 4;
+    padding: 20px;
+    font-size: 14px;
+
+
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    /* Pour que la zone de texte prenne la largeur totale de la div parent */
+    height: 100%;
+  }
+
+#textArea {
+    background-color: transparent;
+    width: 100%;
+    /* Pour que la zone de texte prenne la largeur totale de la div parent */
+    height: 100%;
+    /* Pour que la zone de texte prenne la hauteur totale de la div parent */
+    border: none;
+    /* Suppression de la bordure */
+    box-sizing: border-box;
+    /* Inclure les paddings dans les dimensions totales de la zone de texte */
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+
+#sendButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

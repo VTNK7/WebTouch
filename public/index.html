@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="shortcut icon" href="#">
-    <meta charset="UTF-8">
-    <title>WebSocket Example</title>
-  </head>
-  <body>
-    <h1>OK EASY nik</h1>
-    <button id="sendButton">Send</button>
-    <textarea id="htmlTextArea"></textarea>
-    <div id="messages"></div>
-    <script src="app.js"></script>
-  </body>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="assets/prism/prism.css" />
+  <script src="assets/prism/prism.js"></script>
+  <script src="assets/prism/prism-json.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Webtouch</title>
+</head>
+
+<body>
+  <div class="angry-grid">
+    <div id="sendPlace">
+      <div class="container">
+      <button id="sendButton">Send</button>
+      <textarea id="textArea"></textarea>
+      </div>
+    </div>
+    <div id="receivedData">
+      <div id="messages"></div>
+      <ul id="message-list">
+      </ul>
+    </div>
+    <div id="screenData">
+      <pre id="screenShow" class="language-json" >Click on received messages </pre>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    Prism.highlightAll();
+  </script>
+
+</body>
 
 </html>

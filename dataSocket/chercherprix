@@ -1,15 +1,34 @@
+{"call":"sendMessage","data":{"type":"NpcGenericActionRequestMessage","data":{"npcId":0,"npcActionId":5,"npcMapId":150328}}}
+{"call":"sendMessage","data":{"type":"ExchangeBidHouseListMessage","data":{"id":289}}}
+
+//ICI
+{"call":"sendMessage","data":{"type":"ExchangeObjectMovePricedMessage","data":{"objectUID":269399434,"quantity":1,"price":99}}}
+{"_messageType":"BasicAckMessage","seq":19,"lastPacketId":5514,"_isInitialized":true}
+{"_messageType":"ExchangeBidHouseItemAddOkMessage","itemInfo":{"_type":"ObjectItemToSellInBid","objectGID":289,"effects":[],"objectUID":269454026,"quantity":1,"objectPrice":99,"unsoldDelay":672},"_isInitialized":true}
+{"_messageType":"KamasUpdateMessage","kamasTotal":839,"_isInitialized":true}
+
+{"call":"sendMessage","data":{"type":"NpcGenericActionRequestMessage","data":{"npcId":0,"npcActionId":6,"npcMapId":150328}}}
+
+
 //ouvrir magasin
-{
-    "call": "sendMessage",
-    "data": {
-        "type": "NpcGenericActionRequestMessage",
-        "data": {
-            "npcId": 0,
-            "npcActionId": 6,
-            "npcMapId": 84672518
-        }
-    }
-}
+{"call":"sendMessage","data":{"type":"NpcGenericActionRequestMessage","data":{"npcId":0,"npcActionId":6,"npcMapId":150328}}}
+
+
+{"call":"sendMessage","data":{"type":"ExchangeBidHouseTypeMessage","data":{"type":34}}}
+
+{"call":"sendMessage","data":{"type":"ExchangeBidHouseListMessage","data":{"id":289}}}
+{"call":"sendMessage","data":{"type":"BasicPingMessage","data":{"quiet":true}}}
+{"_messageType":"BasicNoOperationMessage"}
+
+//vente
+{"call":"sendMessage","data":{"type":"NpcGenericActionRequestMessage","data":{"npcId":0,"npcActionId":6,"npcMapId":150328}}}
+
+{"call":"sendMessage","data":{"type":"NpcGenericActionRequestMessage","data":{"npcId":0,"npcActionId":5,"npcMapId":150328}}}
+
+{"call":"sendMessage","data":{"type":"ExchangeBidHouseListMessage","data":{"id":289}}}
+
+{"call":"sendMessage","data":{"type":"ExchangeObjectMovePricedMessage","data":{"objectUID":266874880,"quantity":1,"price":100}}}
+
 {
     "_messageType": "BasicAckMessage",
     "seq": 43,

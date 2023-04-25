@@ -29,7 +29,6 @@ export default class Account {
             console.log("Error in config loading ! (config is null)");
             return;
         }
-
         this.haapi = new HaapiConnection({ account: this });
         this.haapi.processHaapi(this.pseudo, this.password);
         this.connect(Constants.config.sessionId, Constants.config.dataUrl);
@@ -54,63 +53,8 @@ export default class Account {
         this.socket.write(msg);
     }
 
-    CommonSocket() {
-
-        this.socket.on("error", (err) => {
-            console.log('Erreur : ' + err.message);
-        });
-
-        this.socket.on("reconnect", (opts) => {
-            console.log('Reconnecting');
-        });
-
-        this.socket.on("reconnect scheduled", (opts) => {
-            console.log('Reconnection scheduled');
-        });
-
-        this.socket.on("reconnected", (opts) => {
-            console.log('Reconnected');
-        });
-
-        this.socket.on("reconnect timeout", (err, opts) => {
-            console.log('Reconnection timeout');
-        });
-
-        this.socket.on("reconnect failed", (err, opts) => {
-            console.log('Reconnection failed');
-        });
-
-        this.socket.on("timeout", () => {
-            console.log('Connection timeout');
-        });
-
-        this.socket.on("online", () => {
-            console.log('Connection online');
-        });
-
-        this.socket.on("readyStateChange", (state) => {
-            // console.log('Connection readyStateChange');
-        });
-
-        this.socket.on("offline", () => {
-            console.log('Connection offline');
-        });
-
-        this.socket.on("end", () => {
-            console.log('Connection ended');
-        });
-
-        this.socket.on("close", () => {
-            console.log('Connection closed');
-        });
-
-        this.socket.on("destroy", () => {
-            console.log('Connection destroyed');
-        });
-    }
-
     FirstSocket() {
-        console.log("\nStarting first socket operations")
+        console.log("Starting first socket operations")
         this.socket.on("open", () => {
             this.send("connecting", {
                 appVersion: Constants.appVersion,
@@ -146,7 +90,6 @@ export default class Account {
                 });
             }
 
-
             else if (data._messageType === "SelectedServerDataMessage") {
                 const urlSecondSocket = data._access;
                 this.serverAdress = data.address;
@@ -168,8 +111,7 @@ export default class Account {
     }
 
     SecondSocket() {
-        console.log("\nStarting second socket operations")
-
+        console.log("Starting second socket operations")
         this.socket.on("open", () => {
             console.log("port : ", this.serverPort, " adress : ", this.serverAdress, " id : ", this.serverId);
             this.send("connecting", {
@@ -180,8 +122,8 @@ export default class Account {
                     "id": this.serverId
                 },
                 "client": "android",
-                "appVersion": "3.3.7",
-                "buildVersion": "1.58.3"
+                appVersion: Constants.appVersion,
+                buildVersion: Constants.buildVersion,
             }
             );
         });
@@ -227,7 +169,7 @@ export default class Account {
             }
 
             else {
-                sendClient(data._messageType);
+                sendClient(data);
                 this.responseHandler.handle(data);
             }
         });
@@ -236,7 +178,6 @@ export default class Account {
 
     connect(sessionId, url) {
         const currentUrl = this.makeSticky(url, sessionId);
-        console.log("Primus", "Connecting to login server (" + currentUrl + ") ...");
         this.socket = this.createSocket(currentUrl);
         this.FirstSocket(); // will open second socket on finish
         this.socket.open();
@@ -248,6 +189,7 @@ export default class Account {
     }
 
     createSocket(url) {
+        console.log("\nCreate socket to (" + url + ") ...");
         return new Primus(url, {
             manual: true,
             reconnect: {
@@ -349,5 +291,60 @@ export default class Account {
         }
 
         return matrix[b.length][a.length];
+    }
+
+    CommonSocket() {
+
+        this.socket.on("error", (err) => {
+            console.log('Erreur : ' + err.message);
+        });
+
+        this.socket.on("reconnect", (opts) => {
+            console.log('Reconnecting');
+        });
+
+        this.socket.on("reconnect scheduled", (opts) => {
+            console.log('Reconnection scheduled');
+        });
+
+        this.socket.on("reconnected", (opts) => {
+            console.log('Reconnected');
+        });
+
+        this.socket.on("reconnect timeout", (err, opts) => {
+            console.log('Reconnection timeout');
+        });
+
+        this.socket.on("reconnect failed", (err, opts) => {
+            console.log('Reconnection failed');
+        });
+
+        this.socket.on("timeout", () => {
+            console.log('Connection timeout');
+        });
+
+        this.socket.on("online", () => {
+            console.log('Connection online');
+        });
+
+        this.socket.on("readyStateChange", (state) => {
+            // console.log('Connection readyStateChange');
+        });
+
+        this.socket.on("offline", () => {
+            console.log('Connection offline');
+        });
+
+        this.socket.on("end", () => {
+            console.log('Connection ended' );
+        });
+
+        this.socket.on("close", () => {
+            console.log('Connection closed' );
+        });
+
+        this.socket.on("destroy", () => {
+            console.log('Connection destroyed');
+        });
     }
 }
