@@ -26,8 +26,6 @@ export default class Constants {
         this.appVersion = await Constants.getAppVersion();
         this.buildVersion = await Constants.getBuildVersion();
         this.items = Constants.getItemsList();
-
-
     }
 
     static async getConfig() {

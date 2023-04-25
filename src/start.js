@@ -1,8 +1,14 @@
 import Account from './account.js';
 import Constants from './Constants.js';
 import dotenv from 'dotenv';
-import readline from 'readline';
 dotenv.config();
+
+
+const specific = "script";
+const args = {
+    "path": "test.lua"
+}
+
 var account;
 export async function start() {
     if (!process.env.PSEUDO || !process.env.PASSWORD) {
@@ -11,18 +17,10 @@ export async function start() {
     }
     account = new Account(process.env.PSEUDO, process.env.PASSWORD);
     await Constants.init();
-    account.start() // Affiche 'Terminé!'
+    await account.start() 
 
-    // const rl = readline.createInterface({
-    //     input: process.stdin,
-    //     output: process.stdout
-    // });
-
-    // rl.question('Entrez votre nom: ', (nom) => {
-    //     console.log(`Bonjour, ${nom}!`);
-    //     rl.close();
-    // });
-
+    // Il faudra faire en sorte que le script soit lancé après la connexion
+    account.instructionController.RunSpecific(specific, args);
 
 }
 
