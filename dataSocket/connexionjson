@@ -1,0 +1,5 @@
+{"call":"moneyGoultinesAmountRequest"}
+{"call":"sendMessage","data":{"type":"QuestListRequestMessage"}}
+{"call":"sendMessage","data":{"type":"FriendsGetListMessage"}}
+{"call":"sendMessage","data":{"type":"IgnoredGetListMessage"}}
+{"call":"sendMessage","data":{"type":"SpouseGetInformationsMessage"}}

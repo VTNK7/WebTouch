@@ -46,7 +46,7 @@ export default class Account {
             msgName = call;
             msg = data ? { call, data } : { call };
         }
-        console.log("Sending : ", msg.call);
+        console.log("Sending : ", msg);
         // this.onMessageSent.trigger({ type: msgName, data });
         // Frames.dispatcher.emit(msgName, this.account, data);
         this.socket.write(msg);

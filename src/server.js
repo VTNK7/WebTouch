@@ -18,7 +18,9 @@ wss.on('connection', function connection(ws) {
     client.on('message', function message(event) {
         //account.send() a rajouter
         jsonData = JSON.parse(JSON.parse(event.toString()));
-        account.send(JSON.stringify(jsonData.call),JSON.stringify(jsonData.data))
+        console.log("We send" + JSON.stringify(jsonData.call) + "with data : " + JSON.stringify(jsonData.data));
+       //account.send(JSON.stringify(jsonData.call),JSON.stringify(jsonData.data))
+       account.send(jsonData.call,jsonData.data)
     });
     client.send(JSON.stringify({"Connexion established":true}));
 });
