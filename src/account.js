@@ -24,7 +24,6 @@ export default class Account {
     }
 
     async start() {
-
         if (!Constants.config) {
             console.log("Error in config loading ! (config is null)");
             return;
@@ -189,7 +188,7 @@ export default class Account {
     }
 
     createSocket(url) {
-        console.log("\nCreate socket to (" + url + ") ...");
+        console.log("\nPrimus connect socket url : (" + url + ") ...");
         return new Primus(url, {
             manual: true,
             reconnect: {
