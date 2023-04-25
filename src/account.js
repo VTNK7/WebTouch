@@ -2,7 +2,7 @@ import Primus from 'primus-client';
 import HaapiConnection from './HaapiConnection.js';
 import Constants from './Constants.js';
 import HandleResponse from './HandleResponse.js';
-// import { sendClient } from './server.js';
+import { sendClient } from './server.js';
 import InstructionController from './instructions/InstructionController.js';
 
 export default class Account {
@@ -44,7 +44,7 @@ export default class Account {
             msgName = call;
             msg = data ? { call, data } : { call };
         }
-        console.log("Sending : ", msg);
+        console.log("Sending : ", msg.call);
         // this.onMessageSent.trigger({ type: msgName, data });
         // Frames.dispatcher.emit(msgName, this.account, data);
         this.socket.write(msg);
