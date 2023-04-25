@@ -30,7 +30,7 @@ export default class Account {
         }
         this.haapi = new HaapiConnection({ account: this });
         this.haapi.processHaapi(this.pseudo, this.password);
-        this.connect(Constants.config.sessionId, Constants.config.dataUrl);
+        await this.connect(Constants.config.sessionId, Constants.config.dataUrl);
 
     }
 
@@ -50,7 +50,8 @@ export default class Account {
         this.socket.write(msg);
     }
 
-    FirstSocket() {
+    async FirstSocket() {
+        await this.haapi.token;
         console.log("Starting first socket operations")
         this.socket.on("open", () => {
             this.send("connecting", {
@@ -174,10 +175,10 @@ export default class Account {
 
     }
 
-    connect(sessionId, url) {
+    async connect(sessionId, url) {
         const currentUrl = this.makeSticky(url, sessionId);
         this.socket = this.createSocket(currentUrl);
-        this.FirstSocket(); // will open second socket on finish
+        await this.FirstSocket(); // will open second socket on finish
         this.socket.open();
     }
 

@@ -20,7 +20,7 @@ export async function start() {
     await account.start() 
 
     // Il faudra faire en sorte que le script soit lancé après la connexion
-    account.instructionController.RunSpecific(specific, args);
+    // account.instructionController.RunSpecific(specific, args);
 
 }
 
