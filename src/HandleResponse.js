@@ -11,10 +11,17 @@ export default class HandleResponse {
             case "ObjectAveragePricesMessage":
                 this.handleObjectAveragePricesMessage(data);
                 break;
-            
+            case "CurrentMapMessage":
+                this.handleCurrentMapMessage(data);
+                break;
   
             default:
         }
+    }
+
+    handleCurrentMapMessage(data) {
+        console.log("CurrentMapMessage received : " + data.mapId)
+        this.account.playerData.mapId = data.mapId;
     }
 
     handleObjectAveragePricesMessage(data) {

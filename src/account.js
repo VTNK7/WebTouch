@@ -4,23 +4,28 @@ import Constants from './Constants.js';
 import HandleResponse from './HandleResponse.js';
 import { sendClient } from './server.js';
 import InstructionController from './instructions/InstructionController.js';
+import PlayerData from './data/PlayerData.js';
 
 export default class Account {
     haapi;
     socket;
     pseudo;
     password;
-    responseHandler = new HandleResponse({ account: this });
+    responseHandler;
     ticket;
     serverAdress;
     serverId = 401;
     serverPort;
     instructionController;
+    playerData;
 
     constructor(pseudo, password) {
         this.pseudo = pseudo;
         this.password = password;
         this.instructionController = new InstructionController({ account: this });
+        this.playerData = new PlayerData();
+        this.responseHandler = new HandleResponse({ account: this });
+
     }
 
     async start() {
@@ -165,6 +170,35 @@ export default class Account {
                         "id": 3017884 // selection du perso a rendre modifiable
                     }   
                 });
+            }
+
+            else if (data._messageType === "CharacterSelectedSuccessMessage") {
+                this.send("moneyGoultinesAmountRequest", {});
+                this.send("sendMessage", {"type":"QuestListRequestMessage"});
+                this.send("sendMessage", {"type":"FriendsGetListMessage"});
+                this.send("sendMessage", {"type":"IgnoredGetListMessage"});
+                this.send("sendMessage", {"type":"SpouseGetInformationsMessage"});
+                this.send("setShopDetailsRequest", {});
+                this.send("sendMessage", {"type":"OfflineOptionsUpdateRequestMessage","data":{"options":"1,0,NON+PAN+PVN"}});
+                this.send("bakSoftToHardCurrentRateRequest", {});
+                this.send("bakHardToSoftCurrentRateRequest", {});
+                this.send("restoreMysteryBox", {});
+                this.send("sendMessage", {"type":"ClientKeyMessage","data":{"key":"Arndc8wv9gauD1kIJQ33D"}});
+                this.send("sendMessage", {"type":"GameContextCreateRequestMessage"});
+            }
+
+            else if (data._messageType === "SequenceNumberRequestMessage") {
+                this.send("sendMessage", {"type":"SequenceNumberMessage","data":{"number":1}});
+            }
+            
+            else if (data._messageType === "setShopDetailsSuccess") {
+                this.send("shopHighLightsListRequest", {"type":"POPUP"});
+            }
+            else if (data._messageType === "GameContextCreateMessage") {
+                this.send("sendMessage", {"type":"ObjectAveragePricesGetMessage"});
+            }
+            else if (data._messageType === "CurrentMapMessage") {
+                this.send("sendMessage", {"type":"MapInformationsRequestMessage","data":{"mapId":150328}});
             }
 
             else {
